@@ -1,40 +1,24 @@
 import React from 'react';
-import WeatherCard from "./WeatherCard"
-import sunnyIcon from "../assets/Sunny.svg"
-import cloudyIcon from "../assets/Cloudy.svg"
-import partlyCloudyIcon from "../assets/PartlyCloudy.svg"
-import rainyIcon from "../assets/Rainy.svg"
+import { getWeatherIcon } from "./helpers/WeatherIcon";
 
-
-
-export function getWeatherIcon(forecast){
-    if (forecast === "Sunny"){
-      return <img src ={sunnyIcon} alt="Sunny" />;
-    } else if (forecast === "Cloudy"){
-      return <img src ={cloudyIcon} alt="Cloudy" />;
-    } else if (forecast === "Partly Cloudy"){
-      return <img src ={partlyCloudyIcon} alt="Partly Cloudy" />;
-    } else if (forecast === "Rainy"){
-      return <img src ={rainyIcon} alt="Rainy" />;
-    } else {
-        return null;
-    }
-}
-
-function LocationCard({ data }) {
-    return (
-        <div className="weather-card">
-            <h2>{data.city}</h2>
-            <p>{data.forecast}</p>
-            <p>{data.temperature}°</p>
-
-{getWeatherIcon(data.forecast)}
+function LocationCard(props){
+    const icon = getWeatherIcon(props.data.forecast)
+return (
+    <div className = "location-card">
+        <div className = "img-container">
+            <img className="card-img-top" src = {icon} alt={props.data.forecast} id = "icon"/>
         </div>
-    )
+        <div className="card-body">
+            <h3 className="card-title">{props.data.city}</h3>
+            <h5 className="card-text">{props.data.temperature}</h5>
+            <h5 className="card-text">{props.data.forecast}</h5>
+        </div>
+    </div>
+  );
 }
 
-
-export default function Location({ data, location}){
+// Search the data array to find the item that has the matching city
+export default function Location({ data, location, setLocation}){
 const matchedData = data.find((item) => item.city === location)
 return matchedData ? (
     <LocationCard data={matchedData} />

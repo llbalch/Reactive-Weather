@@ -1,4 +1,4 @@
-const cities = [
+ export const cities = [
     {
       city: 'New York City',
       temperature: 14,
@@ -100,5 +100,3 @@ const cities = [
       forecast: 'Sunny'
     }
 ];
-
-module.exports = cities;
